@@ -60,7 +60,7 @@ connect(Host, Port, Opts, Timeout) ->
     Protocol = WSConfig#ws_config.subprotos,
     Origin = WSConfig#ws_config.origin,
 
-    case ssl:connect(Host, Port, opts_to_tcp_opts(TcpOpts),Timeout) of
+    case ssl:connect(Host, Port, opts_to_tcp_opts(TcpOpts) ++ [{verify, verify_none}],Timeout) of
         {ok, Socket} ->
             Pid = spawn_link(
                     fun() ->
